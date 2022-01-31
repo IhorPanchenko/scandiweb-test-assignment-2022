@@ -1,0 +1,98 @@
+.cart {
+  h2 {
+    text-transform: uppercase;
+    font-size: 32px;
+    line-height: 40px;
+    padding-bottom: 59px;
+  }
+}
+
+.cartTotalWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 16px;
+  border-top: 1px solid #e5e5e5;
+  box-sizing: border-box;
+  line-height: 200%;
+
+  .totalTitle {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 620px) {
+  .cart {
+    h2 {
+      font-size: 24px;
+      padding-bottom: 30px;
+    }
+  }
+
+  .itemInfo {
+    font-size: 20px;
+    line-height: 10px;
+
+    .itemPrice {
+      font-size: 18px;
+      line-height: 28px;
+    }
+  }
+
+  .attWrapper {
+    .attName {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .attribute {
+    label {
+      width: 48px;
+      height: 36px;
+      font-size: 14px;
+      line-height: 36px;
+    }
+  }
+
+  .rightWrapper {
+    .addRemoveBtnWrapper {
+      .addBtn,
+      .removeBtn {
+        width: 28px;
+        height: 28px;
+
+        svg {
+          width: 10px;
+        }
+      }
+
+      .addBtn {
+        svg {
+          height: 10px;
+        }
+      }
+
+      .quantity {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .cartTotalWrapper {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 512px) {
+  .rightWrapper {
+    flex-direction: column-reverse;
+
+    .addRemoveBtnWrapper {
+      flex-direction: row;
+    }
+  }
+}

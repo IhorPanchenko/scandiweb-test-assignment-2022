@@ -1,0 +1,33 @@
+.products {
+  h2 {
+    text-transform: capitalize;
+    font-size: 42px;
+    font-weight: 400;
+    padding-top: 80px;
+    padding-bottom: 103px;
+  }
+
+  .productItems {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+@media (max-width: 620px) {
+  .products {
+    h2 {
+      font-size: 24px;
+      padding-top: 30px;
+      padding-bottom: 50px;
+    }
+
+    .productItems {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+  }
+}

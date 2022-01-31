@@ -3,12 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.5.6",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "graphql": "^16.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.1.1",
     "react-scripts": "5.0.0",
+    "react-select": "^5.2.1",
+    "sass": "^1.45.0",
+    "swipe": "^1.7.7",
+    "swiper": "^7.4.1",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
