@@ -1,4 +1,4 @@
-import { SELECT_CURRENCY, ADD_TO_CART, ADD_QUANTITY } from "./types";
+import { SELECT_CURRENCY, ADD_TO_CART, UPDATE_ITEM_QUANTITY } from "./types";
 
 export function selectCurrency(currencySymbol) {
   return {
@@ -14,35 +14,12 @@ export function addToCart(obj) {
   };
 }
 
-export function setCartItem(obj, cartItems) {
-  const objCopy = JSON.stringify(obj);
-
-  if (!cartItems[obj.id]) {
-    cartItems[obj.id] = [];
-
-    cartItems[obj.id].push({
-      data: obj,
-      quantity: 1
-    });
-  } else {
-    for (let item of cartItems[obj.id]) {
-      const itemCopy = JSON.stringify(item.data);
-
-      if (itemCopy === objCopy) {
-        item.quantity += 1;
-      } else {
-        cartItems[obj.id].push({
-          data: obj,
-          quantity: 1
-        });
-      }
-    }
-  }
+export function updateItemCartQuantity(id, index, quantity) {
+  console.log("id, .....", id, index, quantity);
+  return {
+    id,
+    index,
+    type: UPDATE_ITEM_QUANTITY,
+    payload: quantity,
+  };
 }
-
-// export function addItemQuantity(id) {
-//   return dispatch({
-//     type: ADD_QUANTITY,
-//     payload: id,
-//   });
-// }

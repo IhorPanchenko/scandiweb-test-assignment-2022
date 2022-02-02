@@ -1,6 +1,13 @@
 export const getTotalPrice = (items, symbol) => {
-  const sum = items.reduce(
-    (prev, item) => Number(prev) + getCurrentPrice(symbol, item.prices).amount,
+  const sum = Object.values(items).reduce(
+    (prevVal, val) =>
+      prevVal +
+      val.reduce(
+        (prevItem, item) =>
+          prevItem +
+          getCurrentPrice(symbol, item.data.prices).amount * item.quantity,
+        0
+      ),
     0
   );
 

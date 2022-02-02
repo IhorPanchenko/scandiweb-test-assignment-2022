@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import "./styles/index.scss";
-import App from "./App";
+import { createStore, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import { rootReducer } from "./redux/reducer";
+import App from "./App";
+import "./styles/index.scss";
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
@@ -13,7 +14,7 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <ApolloProvider client={client}>

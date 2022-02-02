@@ -1,9 +1,9 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation } from "swiper";
 import "./CartSlider.scss";
 import "swiper/scss";
 import "swiper/scss/navigation";
-import SwiperCore, { Navigation } from "swiper";
 
 SwiperCore.use([Navigation]);
 
@@ -20,7 +20,7 @@ export default class CartSlider extends React.Component {
       >
         {gallery.map((image, index) => (
           <SwiperSlide key={index}>
-            <img className="itemImg" src={image}></img>
+            <img className="itemImg" src={image} alt={"product_image"}></img>
           </SwiperSlide>
         ))}
       </Swiper>

@@ -1,23 +1,43 @@
-import { ADD_TO_CART, ADD_QUANTITY, GET_TOTAL } from "./types";
+import { ADD_TO_CART, UPDATE_ITEM_QUANTITY } from "./types";
 
 const initialState = {
-  items: [],
-  //cartItems: {},
+  items: {},
 };
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      return { ...state, items: [...state.items, action.payload] };
+      const cartItems = state.items;
+      const obj = action.payload;
+      const objCopy = JSON.stringify(action.payload);
 
-    // case ADD_QUANTITY:
-    //   let updatedCart = state.items.map((currentItem) => {
-    //     if (currentItem.id === action.payload) {
-    //       return { ...currentItem, quantity: currentItem.quantity + 1 };
-    //     }
-    //     return currentItem;
-    //   });
-    //   return { ...state, items: updatedCart };
+      if (!cartItems[obj.id]) {
+        cartItems[obj.id] = [];
+
+        cartItems[obj.id].push({
+          data: obj,
+          quantity: 1,
+        });
+      } else {
+        for (let item of cartItems[obj.id]) {
+          const itemCopy = JSON.stringify(item.data);
+
+          if (itemCopy === objCopy) {
+            item.quantity += 1;
+          } else {
+            cartItems[obj.id].push({
+              data: obj,
+              quantity: 1,
+            });
+          }
+        }
+      }
+      return { ...state, items: cartItems };
+
+    case UPDATE_ITEM_QUANTITY: {
+      state.items[action.id][action.index].quantity = action.payload;
+      return { ...state };
+    }
 
     default:
       return state;

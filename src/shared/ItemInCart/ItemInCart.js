@@ -1,25 +1,23 @@
 import React from "react";
-import s from "./ItemInCart.module.scss";
+import { connect } from "react-redux";
+import { updateItemCartQuantity } from "../../redux/actions";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
 import { getCurrentPrice } from "../../helpers/prices";
 import CartSlider from "../../shared/ImageSliders/CartSlider/CartSlider";
+import s from "./ItemInCart.module.scss";
 
-export class ItemInCart extends React.Component {
+class ItemInCart extends React.Component {
   render() {
-    const { currencySymbol, item, index, isCartPage } = this.props;
-    const price = getCurrentPrice(currencySymbol, item.prices);
-    // className={`description ${
-    //   !isActive &&
-    //   product.description.length > 200
-    //     ? "shadowBottom"
-    //     : ""
-    // }`}
+    const { currencySymbol, item, index, isCartPage, updateItemCartQuantity } =
+      this.props;
+    const price = getCurrentPrice(currencySymbol, item.data.prices);
+
     return (
       <div className={`${s.itemInCart} ${isCartPage ? s.cartPage : ""}`}>
         <div className={s.itemWrapperLeft}>
           <div className={s.itemInfo}>
-            <div className={s.itemName}>{item.name}</div>
-            <div className={s.itemBrand}>{item.brand}</div>
+            <div className={s.itemName}>{item.data.name}</div>
+            <div className={s.itemBrand}>{item.data.brand}</div>
           </div>
 
           <div className={s.itemPrice}>
@@ -28,26 +26,38 @@ export class ItemInCart extends React.Component {
           </div>
 
           <div className={s.itemAttributes}>
-            {item.attributes.map((att) => (
-              <div className={s.attWrapper}>
-                <div className={s.attName}>{att.name}:</div>
+            {item.data.attributes.map((attr) => (
+              <div className={s.attrWrapper}>
+                <div className={s.attrName}>{attr.name}:</div>
                 {/* Attribute Radio Buttons  */}
                 <div className={s.attribute}>
                   {/* getting each product attritube (size, color) */}
-                  {att.items.map((item) => {
-                    if (att.id === "Color") {
+                  {attr.items.map((attrItem) => {
+                    if (attr.id === "Color") {
                       return (
                         <div className={s.radioBtnWrapper}>
                           <input
-                            id={att.id.replace(" ", "") + item.id + index}
+                            id={
+                              attr.id.replace(" ", "") +
+                              attrItem.id +
+                              index +
+                              item.data.id
+                            }
                             type="radio"
-                            name={att.id.replace(" ", "") + index}
-                            value={item.value}
+                            name={
+                              attr.id.replace(" ", "") + index + item.data.id
+                            }
+                            value={attrItem.value}
                           ></input>
                           <label
                             className={s.coloredLabel}
-                            htmlFor={att.id.replace(" ", "") + item.id + index}
-                            style={{ background: item.value }}
+                            htmlFor={
+                              attr.id.replace(" ", "") +
+                              attrItem.id +
+                              index +
+                              item.data.id
+                            }
+                            style={{ background: attrItem.value }}
                           ></label>
                         </div>
                       );
@@ -55,15 +65,27 @@ export class ItemInCart extends React.Component {
                       return (
                         <div className={s.radioBtnWrapper}>
                           <input
-                            id={att.id.replace(" ", "") + item.id + index}
+                            id={
+                              attr.id.replace(" ", "") +
+                              attrItem.id +
+                              index +
+                              item.data.id
+                            }
                             type="radio"
-                            name={att.id.replace(" ", "") + index}
-                            value={item.value}
+                            name={
+                              attr.id.replace(" ", "") + index + item.data.id
+                            }
+                            value={attrItem.value}
                           ></input>
                           <label
-                            htmlFor={att.id.replace(" ", "") + item.id + index}
+                            htmlFor={
+                              attr.id.replace(" ", "") +
+                              attrItem.id +
+                              index +
+                              item.data.id
+                            }
                           >
-                            {item.value}
+                            {attrItem.value}
                           </label>
                         </div>
                       );
@@ -77,20 +99,36 @@ export class ItemInCart extends React.Component {
 
         <div className={s.itemWrapperRight}>
           <div className={s.addRemoveBtnWrapper}>
-            <button className={s.addBtn} type="button">
+            <button
+              className={s.addBtn}
+              type="button"
+              onClick={() =>
+                updateItemCartQuantity(item.data.id, index, item.quantity + 1)
+              }
+            >
               <GlobalSvgSelector id="add-item" />
             </button>
-            <div className={s.quantity}>1</div>
-            <button className={s.removeBtn} type="button">
+            <div className={s.quantity}>{item.quantity}</div>
+            <button
+              className={s.removeBtn}
+              type="button"
+              onClick={() =>
+                updateItemCartQuantity(item.data.id, index, item.quantity - 1)
+              }
+            >
               <GlobalSvgSelector id="remove-item" />
             </button>
           </div>
 
           <div className={s.itemImgWrapper}>
             {isCartPage ? (
-              <CartSlider gallery={item.gallery} />
+              <CartSlider gallery={item.data.gallery} />
             ) : (
-              <img className={s.itemImg} src={item.gallery[0]}></img>
+              <img
+                className={s.itemImg}
+                src={item.data.gallery[0]}
+                alt={item.data.name}
+              ></img>
             )}
           </div>
         </div>
@@ -98,3 +136,9 @@ export class ItemInCart extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  updateItemCartQuantity,
+};
+
+export default connect(null, mapDispatchToProps)(ItemInCart);

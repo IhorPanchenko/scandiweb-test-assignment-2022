@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
 import { getTotalPrice } from "../../helpers/prices";
-import { ItemInCart } from "../../shared/ItemInCart/ItemInCart";
-import CartSlider from "../../shared/ImageSliders/CartSlider/CartSlider";
+import ItemInCart from "../../shared/ItemInCart/ItemInCart";
 import s from "./Cart.module.scss";
 
 class Cart extends React.Component {
@@ -15,13 +13,15 @@ class Cart extends React.Component {
       <div className={s.cart}>
         <h2>Cart</h2>
 
-        {items.map((item) => (
-          <ItemInCart
-            item={item}
-            currencySymbol={currencySymbol}
-            isCartPage={true}
-          />
-        ))}
+        {Object.keys(items).map((key) =>
+          items[key].map((item) => (
+            <ItemInCart
+              item={item}
+              currencySymbol={currencySymbol}
+              isCartPage={true}
+            />
+          ))
+        )}
 
         <div className={s.cartTotalWrapper}>
           <div className={s.totalTitle}>Total:</div>

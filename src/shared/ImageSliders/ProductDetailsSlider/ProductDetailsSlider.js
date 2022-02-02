@@ -1,10 +1,10 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { FreeMode, Thumbs } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import SwiperCore, { FreeMode, Thumbs } from "swiper";
 import "./ProductDetailsSlider.scss";
 
 SwiperCore.use([FreeMode, Thumbs]);
@@ -38,7 +38,7 @@ export default class ProductDetailsSlider extends React.Component {
         >
           {gallery.map((image, index) => (
             <SwiperSlide key={index}>
-              <img className="itemImg" src={image}></img>
+              <img className="itemImg" src={image} alt={"product_image"}></img>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -49,7 +49,7 @@ export default class ProductDetailsSlider extends React.Component {
         >
           {gallery.map((image, index) => (
             <SwiperSlide key={index}>
-              <img className="itemImg" src={image}></img>
+              <img className="itemImg" src={image} alt={"product_image"}></img>
             </SwiperSlide>
           ))}
         </Swiper>

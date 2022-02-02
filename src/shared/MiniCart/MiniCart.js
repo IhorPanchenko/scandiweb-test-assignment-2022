@@ -1,13 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToCart } from "../../redux/actions";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
-import s from "./MiniCart.module.scss";
 import { getTotalPrice } from "../../helpers/prices";
-import { ItemInCart } from "../ItemInCart/ItemInCart";
+import ItemInCart from "../ItemInCart/ItemInCart";
+import s from "./MiniCart.module.scss";
 
 class MiniCart extends React.Component {
+  // componentDidUpdate(prevProps) {
+  //   if (JSON.stringify(prevProps)) {
+      
+  //   }
+  // }
+
   render() {
     const { items, currencySymbol, isOpen, onCartClicked } = this.props;
     const total = getTotalPrice(items, currencySymbol);
@@ -23,15 +28,15 @@ class MiniCart extends React.Component {
           }}
         >
           <GlobalSvgSelector id="header-cart" />
-          {items.length > 0 && (
-            <div className={s.itemsInCart}>{items.length}</div>
+          {Object.keys(items).length > 0 && (
+            <div className={s.itemsInCart}>{Object.keys(items).length}</div>
           )}
         </div>
 
         {isOpen && (
           <div className={`drop-down-cart ${s.dropdownCart}`}>
             {/* if cart is empty */}
-            {!items.length ? (
+            {!Object.keys(items).length ? (
               <div className={s.emptyCart}>
                 <GlobalSvgSelector id="header-cart" />
                 <span>Your cart is empty</span>
@@ -42,19 +47,23 @@ class MiniCart extends React.Component {
                   <span>
                     My cart,{" "}
                     <span>
-                      {items.length} {items.length === 1 ? "item" : "items"}
+                      {Object.keys(items).length}{" "}
+                      {Object.keys(items).length === 1 ? "item" : "items"}
                     </span>
                   </span>
                 </div>
 
                 <div className={s.itemInCartWrapper}>
-                  {items.map((item, index) => (
-                    <ItemInCart
-                      item={item}
-                      currencySymbol={currencySymbol}
-                      index={index}
-                    />
-                  ))}
+                  {Object.keys(items).map((key) =>
+                    items[key].map((item, index) => (
+                      <ItemInCart
+                        key={item.data.id + index}
+                        item={item}
+                        currencySymbol={currencySymbol}
+                        index={index}
+                      />
+                    ))
+                  )}
                 </div>
                 {/* Cart Total Amount */}
                 <div className={s.cartTotalWrapper}>
@@ -97,8 +106,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  addToCart,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MiniCart);
+export default connect(mapStateToProps, null)(MiniCart);

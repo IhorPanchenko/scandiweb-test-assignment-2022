@@ -10,6 +10,7 @@ class ProductItem extends React.Component {
   render() {
     const { currencySymbol, product, addToCart } = this.props;
     const price = getCurrentPrice(currencySymbol, product.prices);
+    // console.log("product", product.attributes[0].items[0].value);
 
     return (
       <div
@@ -30,7 +31,11 @@ class ProductItem extends React.Component {
 
           <Link to={`/products/${product.id}`}>
             <div className={s.imgWrapper}>
-              <img src={product.gallery[0]} className={s.productItemImg}></img>
+              <img
+                src={product.gallery[0]}
+                className={s.productItemImg}
+                alt={product.name}
+              ></img>
             </div>
           </Link>
         </div>

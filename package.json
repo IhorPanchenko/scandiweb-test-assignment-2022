@@ -14,6 +14,7 @@
     "react-router-dom": "^6.1.1",
     "react-scripts": "5.0.0",
     "react-select": "^5.2.1",
+    "redux-thunk": "^2.4.1",
     "sass": "^1.45.0",
     "swipe": "^1.7.7",
     "swiper": "^7.4.1",

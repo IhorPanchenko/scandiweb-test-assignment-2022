@@ -4,8 +4,8 @@ import { addToCart } from "../../redux/actions";
 import { client } from "../../index";
 import { getProductDetails } from "../../helpers/gqlQueries";
 import { getCurrentPrice } from "../../helpers/prices";
-import "./ProductDetail.scss";
 import ProductDetailsSlider from "../ImageSliders/ProductDetailsSlider/ProductDetailsSlider";
+import "./ProductDetail.scss";
 
 class ProductDetail extends React.Component {
   constructor(props) {
