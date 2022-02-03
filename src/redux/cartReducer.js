@@ -1,4 +1,4 @@
-import { ADD_TO_CART, UPDATE_ITEM_QUANTITY } from "./types";
+import { ADD_TO_CART, UPDATE_ITEM_QUANTITY, REMOVE_FROM_CART } from "./types";
 
 const initialState = {
   items: {},
@@ -7,7 +7,7 @@ const initialState = {
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const cartItems = state.items;
+      const cartItems = JSON.parse(JSON.stringify(state.items));
       const obj = action.payload;
       const objCopy = JSON.stringify(action.payload);
 
@@ -35,8 +35,12 @@ export const cartReducer = (state = initialState, action) => {
       return { ...state, items: cartItems };
 
     case UPDATE_ITEM_QUANTITY: {
-      state.items[action.id][action.index].quantity = action.payload;
-      return { ...state };
+      const cartItems = JSON.parse(JSON.stringify(state.items));
+      cartItems[action.id][action.index].quantity = action.payload;
+      return { ...state, items: cartItems };
+    }
+
+    case REMOVE_FROM_CART: {
     }
 
     default:

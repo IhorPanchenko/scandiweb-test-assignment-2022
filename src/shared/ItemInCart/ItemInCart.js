@@ -2,14 +2,20 @@ import React from "react";
 import { connect } from "react-redux";
 import { updateItemCartQuantity } from "../../redux/actions";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
-import { getCurrentPrice } from "../../helpers/prices";
+import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
 import CartSlider from "../../shared/ImageSliders/CartSlider/CartSlider";
 import s from "./ItemInCart.module.scss";
 
 class ItemInCart extends React.Component {
+  updateQuantity(isIncrement) {
+    const { item, index, updateItemCartQuantity } = this.props;
+    const newQuantity = isIncrement ? item.quantity + 1 : item.quantity - 1;
+    if (!isIncrement && newQuantity < 0) return;
+    updateItemCartQuantity(item.data.id, index, newQuantity);
+  }
+
   render() {
-    const { currencySymbol, item, index, isCartPage, updateItemCartQuantity } =
-      this.props;
+    const { currencySymbol, item, index, isCartPage } = this.props;
     const price = getCurrentPrice(currencySymbol, item.data.prices);
 
     return (
@@ -102,9 +108,7 @@ class ItemInCart extends React.Component {
             <button
               className={s.addBtn}
               type="button"
-              onClick={() =>
-                updateItemCartQuantity(item.data.id, index, item.quantity + 1)
-              }
+              onClick={() => this.updateQuantity(true)}
             >
               <GlobalSvgSelector id="add-item" />
             </button>
@@ -112,9 +116,7 @@ class ItemInCart extends React.Component {
             <button
               className={s.removeBtn}
               type="button"
-              onClick={() =>
-                updateItemCartQuantity(item.data.id, index, item.quantity - 1)
-              }
+              onClick={() => this.updateQuantity(false)}
             >
               <GlobalSvgSelector id="remove-item" />
             </button>

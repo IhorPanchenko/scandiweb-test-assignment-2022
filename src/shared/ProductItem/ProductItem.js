@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
 import { addToCart } from "../../redux/actions";
-import { getCurrentPrice } from "../../helpers/prices";
+import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
 import s from "./ProductItem.module.scss";
 
 class ProductItem extends React.Component {

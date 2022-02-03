@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { addToCart } from "../../redux/actions";
 import { client } from "../../index";
 import { getProductDetails } from "../../helpers/gqlQueries";
-import { getCurrentPrice } from "../../helpers/prices";
+import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
 import ProductDetailsSlider from "../ImageSliders/ProductDetailsSlider/ProductDetailsSlider";
 import "./ProductDetail.scss";
 

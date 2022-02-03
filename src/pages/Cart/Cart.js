@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getTotalPrice } from "../../helpers/prices";
+import { getTotalPrice } from "../../helpers/pricesAndQuantity";
 import ItemInCart from "../../shared/ItemInCart/ItemInCart";
 import s from "./Cart.module.scss";
 
@@ -14,11 +14,13 @@ class Cart extends React.Component {
         <h2>Cart</h2>
 
         {Object.keys(items).map((key) =>
-          items[key].map((item) => (
+          items[key].map((item, index) => (
             <ItemInCart
+              key={item.data.id + index}
               item={item}
               currencySymbol={currencySymbol}
               isCartPage={true}
+              index={index}
             />
           ))
         )}

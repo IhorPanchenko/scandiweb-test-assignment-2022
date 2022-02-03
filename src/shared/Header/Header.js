@@ -33,6 +33,8 @@ export class Header extends React.Component {
       isCartOpen: !this.state.isCartOpen,
       isCurrencyOpen: false,
     });
+
+    document.body.style.overflow = this.state.isCartOpen ? "auto" : "hidden";
   };
 
   onCurrencyClicked = () => {
@@ -47,6 +49,8 @@ export class Header extends React.Component {
       isCurrencyOpen: false,
       isCartOpen: false,
     });
+
+    document.body.style.overflow = "auto";
   };
 
   render() {

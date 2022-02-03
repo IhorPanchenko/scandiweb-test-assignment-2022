@@ -274,6 +274,15 @@
           filter: brightness(0) saturate(100%) invert(4%) sepia(7%)
             saturate(1950%) hue-rotate(176deg) brightness(92%) contrast(82%);
         }
+
+        &:hover {
+          background: #1d1f22;
+
+          svg {
+            filter: brightness(0) saturate(100%) invert(99%) sepia(37%)
+              saturate(2%) hue-rotate(173deg) brightness(118%) contrast(100%);
+          }
+        }
       }
 
       .addBtn {

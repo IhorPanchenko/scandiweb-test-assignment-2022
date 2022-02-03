@@ -15,7 +15,6 @@ export function addToCart(obj) {
 }
 
 export function updateItemCartQuantity(id, index, quantity) {
-  console.log("id, .....", id, index, quantity);
   return {
     id,
     index,

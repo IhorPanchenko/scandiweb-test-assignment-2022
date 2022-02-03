@@ -2,20 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
-import { getTotalPrice } from "../../helpers/prices";
+import { getTotalPrice } from "../../helpers/pricesAndQuantity";
 import ItemInCart from "../ItemInCart/ItemInCart";
 import s from "./MiniCart.module.scss";
 
 class MiniCart extends React.Component {
-  // componentDidUpdate(prevProps) {
-  //   if (JSON.stringify(prevProps)) {
-      
-  //   }
-  // }
-
   render() {
     const { items, currencySymbol, isOpen, onCartClicked } = this.props;
-    const total = getTotalPrice(items, currencySymbol);
+    const { totalPrice, totalQuantity } = getTotalPrice(items, currencySymbol);
 
     return (
       <div className={s.cartWrapper}>
@@ -28,8 +22,8 @@ class MiniCart extends React.Component {
           }}
         >
           <GlobalSvgSelector id="header-cart" />
-          {Object.keys(items).length > 0 && (
-            <div className={s.itemsInCart}>{Object.keys(items).length}</div>
+          {totalQuantity > 0 && (
+            <div className={s.itemsInCart}>{totalQuantity}</div>
           )}
         </div>
 
@@ -47,8 +41,7 @@ class MiniCart extends React.Component {
                   <span>
                     My cart,{" "}
                     <span>
-                      {Object.keys(items).length}{" "}
-                      {Object.keys(items).length === 1 ? "item" : "items"}
+                      {totalQuantity} {totalQuantity === 1 ? "item" : "items"}
                     </span>
                   </span>
                 </div>
@@ -70,7 +63,7 @@ class MiniCart extends React.Component {
                   <div className={s.totalTitle}>Total</div>
                   <div className={s.totalValue}>
                     {currencySymbol}
-                    {total}
+                    {totalPrice}
                   </div>
                 </div>
                 {/* Cart Buttons */}
@@ -106,4 +99,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(MiniCart);
+export default connect(mapStateToProps)(MiniCart);
