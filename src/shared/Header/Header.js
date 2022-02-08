@@ -18,9 +18,19 @@ export class Header extends React.Component {
     document.addEventListener("click", this.onCloseHeaderDropdown.bind(this));
   }
 
+  componentWillUnmount() {
+    document.removeEventListener(
+      "click",
+      this.onCloseHeaderDropdown.bind(this)
+    );
+  }
+
   onCloseHeaderDropdown(e) {
+    if (!this.state.isCurrencyOpen && !this.state.isCartOpen) return;
+
     if (
       e.target.classList.contains("drop-down-cart") ||
+      e.target.classList.contains("deleteBtn") ||
       e.target.closest(".drop-down-cart")
     ) {
       return;
@@ -96,7 +106,6 @@ export class Header extends React.Component {
             <MiniCart
               isOpen={this.state.isCartOpen}
               onCartClicked={this.onCartClicked}
-              onClose={this.onClose}
             />
           </div>
         </div>

@@ -30,7 +30,7 @@ class MiniCart extends React.Component {
         {isOpen && (
           <div className={`drop-down-cart ${s.dropdownCart}`}>
             {/* if cart is empty */}
-            {!Object.keys(items).length ? (
+            {!totalQuantity ? (
               <div className={s.emptyCart}>
                 <GlobalSvgSelector id="header-cart" />
                 <span>Your cart is empty</span>
@@ -50,7 +50,7 @@ class MiniCart extends React.Component {
                   {Object.keys(items).map((key) =>
                     items[key].map((item, index) => (
                       <ItemInCart
-                        key={item.data.id + index}
+                        key={"mini-cart" + item.data.id + index}
                         item={item}
                         currencySymbol={currencySymbol}
                         index={index}

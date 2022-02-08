@@ -92,8 +92,8 @@
     align-items: center;
     margin-right: 10px;
 
-    .addBtn,
-    .removeBtn {
+    .increaseBtn,
+    .decreaseBtn {
       background: #ffffff;
       width: 24px;
       height: 24px;
@@ -118,9 +118,28 @@
       }
     }
 
-    .addBtn {
+    .increaseBtn {
       svg {
         height: 8px;
+      }
+    }
+
+    .removeItem {
+      background: #ffffff;
+      cursor: pointer;
+      line-height: 8px;
+
+      svg {
+        width: 14px;
+        height: 17px;
+        pointer-events: none;
+      }
+
+      &:hover {
+        svg {
+          filter: brightness(0) saturate(100%) invert(67%) sepia(5%)
+            saturate(3%) hue-rotate(16deg) brightness(98%) contrast(92%);
+        }
       }
     }
 
@@ -259,8 +278,8 @@
       justify-content: space-between;
       height: 210px;
 
-      .addBtn,
-      .removeBtn {
+      .increaseBtn,
+      .decreaseBtn {
         width: 45px;
         height: 45px;
         background: #ffffff;
@@ -285,7 +304,7 @@
         }
       }
 
-      .addBtn {
+      .increaseBtn {
         svg {
           height: 15px;
         }
@@ -293,6 +312,13 @@
 
       .quantity {
         font-size: 24px;
+      }
+
+      .removeItem {
+        svg {
+          width: 16px;
+          height: 24px;
+        }
       }
     }
 
@@ -330,6 +356,22 @@
         min-width: 141px;
         margin: 16px auto 0;
         height: auto;
+
+        .increaseBtn,
+        .decreaseBtn {
+          width: 28px;
+          height: 28px;
+
+          svg {
+            width: 10px;
+          }
+        }
+
+        .increaseBtn {
+          svg {
+            height: 10px;
+          }
+        }
       }
 
       .itemImgWrapper {
@@ -366,13 +408,20 @@
     .addRemoveBtnWrapper {
       height: 100px;
 
-      .addBtn,
-      .removeBtn {
+      .increaseBtn,
+      .decreaseBtn {
         width: 16px;
         height: 16px;
 
         svg {
           width: 6px;
+        }
+      }
+
+      .removeItem {
+        svg {
+          width: 12px;
+          height: 14px;
         }
       }
     }
@@ -419,22 +468,12 @@
       margin-top: 10px;
 
       .addRemoveBtnWrapper {
-        .addBtn,
-        .removeBtn {
-          width: 28px;
-          height: 28px;
-
+        .removeItem {
           svg {
-            width: 10px;
+            width: 16px;
+            height: 18px;
           }
         }
-
-        .addBtn {
-          svg {
-            height: 10px;
-          }
-        }
-
         .quantity {
           font-size: 18px;
         }
@@ -470,8 +509,8 @@
     .addRemoveBtnWrapper {
       height: 137px;
 
-      .addBtn,
-      .removeBtn {
+      .increaseBtn,
+      .decreaseBtn {
         width: 24px;
         height: 24px;
 

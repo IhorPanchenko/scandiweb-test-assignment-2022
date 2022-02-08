@@ -41,7 +41,6 @@ export class Caterogy extends React.Component {
 
   render() {
     const products = this.state.products;
-
     if (this.state.loading) return <p>Loading...</p>;
     if (this.state.error) return <p>Error: </p>;
 

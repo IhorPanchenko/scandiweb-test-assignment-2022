@@ -1,4 +1,10 @@
-import { SELECT_CURRENCY, ADD_TO_CART, UPDATE_ITEM_QUANTITY } from "./types";
+import {
+  SELECT_CURRENCY,
+  ADD_TO_CART,
+  UPDATE_ITEM_QUANTITY,
+  UPDATE_ITEM_ATTRIBUTES,
+  REMOVE_FROM_CART,
+} from "./types";
 
 export function selectCurrency(currencySymbol) {
   return {
@@ -20,5 +26,23 @@ export function updateItemCartQuantity(id, index, quantity) {
     index,
     type: UPDATE_ITEM_QUANTITY,
     payload: quantity,
+  };
+}
+
+export function updateItemCartAttr(id, index, attrIndex, attrItemIndex) {
+  return {
+    id,
+    index,
+    attrIndex,
+    type: UPDATE_ITEM_ATTRIBUTES,
+    payload: attrItemIndex,
+  };
+}
+
+export function removeItemFromCart(id, index) {
+  return {
+    id,
+    index,
+    type: REMOVE_FROM_CART,
   };
 }

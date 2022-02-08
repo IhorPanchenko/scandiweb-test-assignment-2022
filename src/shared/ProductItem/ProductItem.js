@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
 import { addToCart } from "../../redux/actions";
 import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
+import { setIsCheckedParam } from "../../helpers/changeProductAttr";
 import s from "./ProductItem.module.scss";
 
 class ProductItem extends React.Component {
   render() {
-    const { currencySymbol, product, addToCart } = this.props;
+    const { currencySymbol, addToCart } = this.props;
+    const product = setIsCheckedParam(this.props.product);
     const price = getCurrentPrice(currencySymbol, product.prices);
-    // console.log("product", product.attributes[0].items[0].value);
 
     return (
       <div

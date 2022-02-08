@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateItemCartQuantity } from "../../redux/actions";
+import {
+  updateItemCartQuantity,
+  updateItemCartAttr,
+  removeItemFromCart,
+} from "../../redux/actions";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
 import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
 import CartSlider from "../../shared/ImageSliders/CartSlider/CartSlider";
@@ -15,7 +19,14 @@ class ItemInCart extends React.Component {
   }
 
   render() {
-    const { currencySymbol, item, index, isCartPage } = this.props;
+    const {
+      currencySymbol,
+      item,
+      index,
+      isCartPage,
+      updateItemCartAttr,
+      removeItemFromCart,
+    } = this.props;
     const price = getCurrentPrice(currencySymbol, item.data.prices);
 
     return (
@@ -32,18 +43,35 @@ class ItemInCart extends React.Component {
           </div>
 
           <div className={s.itemAttributes}>
-            {item.data.attributes.map((attr) => (
-              <div className={s.attrWrapper}>
+            {item.data.attributes.map((attr, attrIndex) => (
+              <div
+                className={s.attrWrapper}
+                key={
+                  (isCartPage ? "cart" : "minicart") +
+                  "attr" +
+                  attr.id +
+                  index +
+                  item.data.id
+                }
+              >
                 <div className={s.attrName}>{attr.name}:</div>
                 {/* Attribute Radio Buttons  */}
                 <div className={s.attribute}>
                   {/* getting each product attritube (size, color) */}
-                  {attr.items.map((attrItem) => {
+                  {attr.items.map((attrItem, attrItemIndex) => {
                     if (attr.id === "Color") {
                       return (
-                        <div className={s.radioBtnWrapper}>
+                        <div
+                          className={s.radioBtnWrapper}
+                          key={
+                            (isCartPage ? "cart" : "minicart") +
+                            attrItem.value +
+                            index
+                          }
+                        >
                           <input
                             id={
+                              (isCartPage ? "cart" : "minicart") +
                               attr.id.replace(" ", "") +
                               attrItem.id +
                               index +
@@ -51,13 +79,26 @@ class ItemInCart extends React.Component {
                             }
                             type="radio"
                             name={
-                              attr.id.replace(" ", "") + index + item.data.id
+                              (isCartPage ? "cart" : "minicart") +
+                              attr.id.replace(" ", "") +
+                              index +
+                              item.data.id
                             }
                             value={attrItem.value}
+                            defaultChecked={attrItem.isChecked}
+                            onChange={() =>
+                              updateItemCartAttr(
+                                item.data.id,
+                                index,
+                                attrIndex,
+                                attrItemIndex
+                              )
+                            }
                           ></input>
                           <label
                             className={s.coloredLabel}
                             htmlFor={
+                              (isCartPage ? "cart" : "minicart") +
                               attr.id.replace(" ", "") +
                               attrItem.id +
                               index +
@@ -69,9 +110,13 @@ class ItemInCart extends React.Component {
                       );
                     } else {
                       return (
-                        <div className={s.radioBtnWrapper}>
+                        <div
+                          className={s.radioBtnWrapper}
+                          key={attrItem.value + index}
+                        >
                           <input
                             id={
+                              (isCartPage ? "cart" : "minicart") +
                               attr.id.replace(" ", "") +
                               attrItem.id +
                               index +
@@ -79,12 +124,25 @@ class ItemInCart extends React.Component {
                             }
                             type="radio"
                             name={
-                              attr.id.replace(" ", "") + index + item.data.id
+                              (isCartPage ? "cart" : "minicart") +
+                              attr.id.replace(" ", "") +
+                              index +
+                              item.data.id
                             }
                             value={attrItem.value}
+                            defaultChecked={attrItem.isChecked}
+                            onChange={() =>
+                              updateItemCartAttr(
+                                item.data.id,
+                                index,
+                                attrIndex,
+                                attrItemIndex
+                              )
+                            }
                           ></input>
                           <label
                             htmlFor={
+                              (isCartPage ? "cart" : "minicart") +
                               attr.id.replace(" ", "") +
                               attrItem.id +
                               index +
@@ -106,19 +164,28 @@ class ItemInCart extends React.Component {
         <div className={s.itemWrapperRight}>
           <div className={s.addRemoveBtnWrapper}>
             <button
-              className={s.addBtn}
+              className={s.increaseBtn}
               type="button"
               onClick={() => this.updateQuantity(true)}
             >
-              <GlobalSvgSelector id="add-item" />
+              <GlobalSvgSelector id="increase-quantity" />
             </button>
+
             <div className={s.quantity}>{item.quantity}</div>
             <button
-              className={s.removeBtn}
+              className={s.decreaseBtn}
               type="button"
               onClick={() => this.updateQuantity(false)}
             >
-              <GlobalSvgSelector id="remove-item" />
+              <GlobalSvgSelector id="decrease-quantity" />
+            </button>
+
+            <button
+              className={`deleteBtn ${s.removeItem}`}
+              type="button"
+              onClick={() => removeItemFromCart(item.data.id, index)}
+            >
+              <GlobalSvgSelector id="cart-bin" />
             </button>
           </div>
 
@@ -141,6 +208,8 @@ class ItemInCart extends React.Component {
 
 const mapDispatchToProps = {
   updateItemCartQuantity,
+  updateItemCartAttr,
+  removeItemFromCart,
 };
 
 export default connect(null, mapDispatchToProps)(ItemInCart);

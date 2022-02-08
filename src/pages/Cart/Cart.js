@@ -7,7 +7,7 @@ import s from "./Cart.module.scss";
 class Cart extends React.Component {
   render() {
     const { items, currencySymbol } = this.props;
-    const total = getTotalPrice(items, currencySymbol);
+    const { totalPrice } = getTotalPrice(items, currencySymbol);
 
     return (
       <div className={s.cart}>
@@ -16,7 +16,7 @@ class Cart extends React.Component {
         {Object.keys(items).map((key) =>
           items[key].map((item, index) => (
             <ItemInCart
-              key={item.data.id + index}
+              key={"cart" + item.data.id + index}
               item={item}
               currencySymbol={currencySymbol}
               isCartPage={true}
@@ -29,7 +29,7 @@ class Cart extends React.Component {
           <div className={s.totalTitle}>Total:</div>
           <div>
             {currencySymbol}
-            {total}
+            {totalPrice}
           </div>
         </div>
       </div>

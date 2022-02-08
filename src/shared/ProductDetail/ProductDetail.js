@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { addToCart } from "../../redux/actions";
 import { client } from "../../index";
 import { getProductDetails } from "../../helpers/gqlQueries";
+import { setIsCheckedParam } from "../../helpers/changeProductAttr";
 import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
 import ProductDetailsSlider from "../ImageSliders/ProductDetailsSlider/ProductDetailsSlider";
 import "./ProductDetail.scss";
@@ -11,7 +12,7 @@ class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: [],
+      product: {},
       loading: true,
       error: false,
       isActive: false,
@@ -26,7 +27,7 @@ class ProductDetail extends React.Component {
       })
       .then(({ loading, error, data }) => {
         this.setState({
-          product: data.product,
+          product: setIsCheckedParam(data.product),
           loading,
           error,
         });
@@ -61,6 +62,21 @@ class ProductDetail extends React.Component {
     this.setState({ isActive: !this.state.isActive });
   }
 
+  onChangeAttribute(attrIndex, itemIndex) {
+    const newProductData = JSON.parse(JSON.stringify(this.state.product));
+    const newAttributesData = newProductData.attributes[attrIndex].items.map(
+      (item, index) => ({
+        ...item,
+        isChecked: index === itemIndex ? true : false,
+      })
+    );
+
+    newProductData.attributes[attrIndex].items = newAttributesData;
+    this.setState({
+      product: newProductData,
+    });
+  }
+
   render() {
     const { product, isActive, price } = this.state;
 
@@ -85,7 +101,7 @@ class ProductDetail extends React.Component {
           </div>
 
           <div className="attributes">
-            {product.attributes.map((attr) => (
+            {product.attributes.map((attr, attrIndex) => (
               <div className="attWrapper" key={attr.id}>
                 <div className="attName">{attr.name}:</div>
                 {/* Attribute Radio Buttons  */}
@@ -103,7 +119,12 @@ class ProductDetail extends React.Component {
                             type="radio"
                             name={attr.id.replace(" ", "")}
                             value={item.value}
-                            defaultChecked={index === 0}
+                            defaultChecked={item.isChecked}
+                            onChange={this.onChangeAttribute.bind(
+                              this,
+                              attrIndex,
+                              index
+                            )}
                           ></input>
                           <label
                             className="coloredLabel"
@@ -123,7 +144,12 @@ class ProductDetail extends React.Component {
                             type="radio"
                             name={attr.id.replace(" ", "")}
                             value={item.value}
-                            defaultChecked={index === 0}
+                            defaultChecked={item.isChecked}
+                            onChange={this.onChangeAttribute.bind(
+                              this,
+                              attrIndex,
+                              index
+                            )}
                           ></input>
                           <label htmlFor={attr.id.replace(" ", "") + item.id}>
                             {item.value}
@@ -177,146 +203,6 @@ class ProductDetail extends React.Component {
     );
   }
 }
-
-// const ProductDetail = ({ addToCart }) => {
-//   const { productId } = useParams();
-//   const [isActive, setActive] = useState(false);
-
-//   const { loading, error, data } = useQuery(gql`
-//   query GetProductDetailedInfo {
-//     product(id: "${productId}") {
-//       name
-//       description
-//       gallery
-//       brand
-//       inStock
-
-//       attributes {
-// 				id
-//         name
-//         type
-
-//         items {
-//           displayValue
-//           value
-//           id
-//         }
-//       }
-
-//       prices {
-//         currency {
-//           symbol
-//         }
-//         amount
-//       }
-//     }
-//   }
-// `);
-
-//   const handleToggle = () => {
-//     setActive(!isActive);
-//   };
-
-//   const addToCartClick = (e) => {
-//     addToCart(data.product);
-//   };
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>Error :</p>;
-
-//   return (
-//     <div className="productDetails">
-//       {/* Product Images Block */}
-//       <div className="galleryWrapper">
-//         <ProductDetailsSlider gallery={data.product.gallery} />
-//       </div>
-
-//       {/* Product Details Block */}
-//       <div className="prodDetailsWrapper">
-//         <div className="prodNameWrapper">
-//           {!data.product.inStock && (<span className="outOfStock">Out of stock</span>)}
-//           <span className="prodName">{data.product.name}</span>
-//           <span className="prodBrand">{data.product.brand}</span>
-//         </div>
-
-//         <div className="attributes">
-//           {data.product.attributes.map((att) => (
-//             <div className="attWrapper">
-//               <div className="attName">{att.name}:</div>
-//               {/* Attribute Radio Buttons  */}
-//               <div className="radioBtns">
-//                 {/* getting each product attritube (size, color) */}
-//                 {att.items.map((item) => {
-//                   if (att.id === "Color") {
-//                     return (
-//                       <div className="radioBtnWrapper">
-//                         <input
-//                           id={att.id.replace(" ", "") + item.id}
-//                           type="radio"
-//                           name={att.id.replace(" ", "")}
-//                           value={item.value}
-//                         ></input>
-//                         <label
-//                           className="coloredLabel"
-//                           htmlFor={att.id.replace(" ", "") + item.id}
-//                           style={{ background: item.value }}
-//                         ></label>
-//                       </div>
-//                     );
-//                   } else {
-//                     return (
-//                       <div className="radioBtnWrapper">
-//                         <input
-//                           id={att.id.replace(" ", "") + item.id}
-//                           type="radio"
-//                           name={att.id.replace(" ", "")}
-//                           value={item.value}
-//                         ></input>
-//                         <label htmlFor={att.id.replace(" ", "") + item.id}>
-//                           {item.value}
-//                         </label>
-//                       </div>
-//                     );
-//                   }
-//                 })}
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-
-//         <div className="priceWrapper">
-//           <span>Price:</span>
-//           <div className="price">
-//             <span>{data.product.prices[0].currency.symbol}</span>
-//             <span>{data.product.prices[0].amount}</span>
-//           </div>
-//         </div>
-
-//         <button className={`${!data.product.inStock ? "inactive" : ""}`} type="button" onClick={addToCartClick}>
-//           Add to cart
-//         </button>
-
-//         <div className={`descriptionWrapper ${isActive ? "showDesc" : ""}`}>
-//           {/* parsing product description as a html */}
-//           <div
-//             className={`description ${
-//               !isActive && data.product.description.length > 200
-//                 ? "shadowBottom"
-//                 : ""
-//             }`}
-//             dangerouslySetInnerHTML={{ __html: data.product.description }}
-//           ></div>
-
-//           {data.product.description.length > 200 && (
-//             <div className="showMore" onClick={handleToggle}>
-//               {isActive ? "Show less" : "Show more..."}
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
 
 const mapStateToProps = (state) => {
   return {

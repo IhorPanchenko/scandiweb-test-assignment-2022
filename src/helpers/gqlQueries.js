@@ -51,6 +51,7 @@ export const getProductDetails = (productId) => {
   return gql`
     query GetProductDetails {
       product(id: "${productId}") {
+        id
         name
         description
         gallery
