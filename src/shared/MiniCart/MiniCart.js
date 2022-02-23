@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
 import { getTotalPrice } from "../../helpers/pricesAndQuantity";
 import ItemInCart from "../ItemInCart/ItemInCart";
@@ -72,7 +73,7 @@ class MiniCart extends React.Component {
                     <button
                       className={s.viewBag}
                       type="button"
-                      onClick={(e) => {
+                      onClick={() => {
                         onCartClicked();
                       }}
                     >
@@ -91,6 +92,13 @@ class MiniCart extends React.Component {
     );
   }
 }
+
+MiniCart.propTypes = {
+  items: PropTypes.object,
+  currencySymbol: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onCartClicked: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

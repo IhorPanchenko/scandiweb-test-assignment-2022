@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import {
   updateItemCartQuantity,
   updateItemCartAttr,
@@ -205,6 +206,16 @@ class ItemInCart extends React.Component {
     );
   }
 }
+
+ItemInCart.propTypes = {
+  item: PropTypes.object,
+  index: PropTypes.number,
+  updateItemCartQuantity: PropTypes.func,
+  currencySymbol: PropTypes.string,
+  isCartPage: PropTypes.bool,
+  updateItemCartAttr: PropTypes.func,
+  removeItemFromCart: PropTypes.func,
+};
 
 const mapDispatchToProps = {
   updateItemCartQuantity,

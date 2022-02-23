@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addToCart } from "../../redux/actions";
+import PropTypes from "prop-types";
 import { client } from "../../index";
 import { getProductDetails } from "../../helpers/gqlQueries";
 import { setIsCheckedParam } from "../../helpers/changeProductAttr";
@@ -79,6 +80,8 @@ class ProductDetail extends React.Component {
 
   render() {
     const { product, isActive, price } = this.state;
+    // let parser = new DOMParser();
+    // let htmlDoc = parser.parseFromString(product.description, "text/html");
 
     if (this.state.loading) return <p>Loading...</p>;
     if (this.state.error) return <p>Error: </p>;
@@ -190,7 +193,9 @@ class ProductDetail extends React.Component {
               dangerouslySetInnerHTML={{
                 __html: product.description,
               }}
-            ></div>
+            >
+              {/* {htmlDoc} */}
+            </div>
 
             {product.description.length > 200 && (
               <div className="showMore" onClick={this.handleToggle.bind(this)}>
@@ -203,6 +208,12 @@ class ProductDetail extends React.Component {
     );
   }
 }
+
+ProductDetail.propTypes = {
+  match: PropTypes.object,
+  currencySymbol: PropTypes.string,
+  addToCart: PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

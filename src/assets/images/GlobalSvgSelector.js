@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const GlobalSvgSelector = ({ id }) => {
   switch (id) {
@@ -146,4 +147,8 @@ export const GlobalSvgSelector = ({ id }) => {
     default:
       return null;
   }
+};
+
+GlobalSvgSelector.propTypes = {
+  id: PropTypes.string,
 };

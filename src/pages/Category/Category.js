@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { client } from "../../index";
 import { getProducts } from "../../helpers/gqlQueries";
 import ProductItem from "../../shared/ProductItem/ProductItem";
 import s from "./Category.module.scss";
 
-export class Caterogy extends React.Component {
+export class Category extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,3 +57,7 @@ export class Caterogy extends React.Component {
     );
   }
 }
+
+Category.propTypes = {
+  category: PropTypes.string,
+};

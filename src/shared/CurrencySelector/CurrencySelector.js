@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { client } from "../../index";
 import { selectCurrency } from "../../redux/actions";
 import { getCurrency } from "../../helpers/gqlQueries";
@@ -75,6 +76,13 @@ class CurrencySelector extends React.Component {
     );
   }
 }
+
+CurrencySelector.propTypes = {
+  currency: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onCurrencyClicked: PropTypes.func,
+  selectCurrency: PropTypes.func,
+};
 
 const mapDispatchToProps = {
   selectCurrency,

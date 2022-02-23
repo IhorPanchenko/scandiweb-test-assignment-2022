@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
 import { addToCart } from "../../redux/actions";
 import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
@@ -42,7 +43,8 @@ class ProductItem extends React.Component {
         </div>
 
         <Link to={`/products/${product.id}`}>
-          <span className={s.productItemName}>{product.name}</span>
+          <span className={s.productItemName}>{product.name}, </span>
+          <span className={s.productItemBrand}>{product.brand}</span>
           <div className={s.itemPriceWrapper}>
             <span>{price.currency.symbol}</span>
             <span>{price.amount}</span>
@@ -52,6 +54,12 @@ class ProductItem extends React.Component {
     );
   }
 }
+
+ProductItem.propTypes = {
+  currencySymbol: PropTypes.string,
+  addToCart: PropTypes.func,
+  product: PropTypes.object,
+};
 
 const mapStateToProps = (state) => {
   return {

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getTotalPrice } from "../../helpers/pricesAndQuantity";
 import ItemInCart from "../../shared/ItemInCart/ItemInCart";
@@ -36,6 +37,11 @@ class Cart extends React.Component {
     );
   }
 }
+
+Cart.propTypes = {
+  items: PropTypes.object,
+  currencySymbol: PropTypes.string,
+};
 
 const mapStateToProps = (state) => {
   return {

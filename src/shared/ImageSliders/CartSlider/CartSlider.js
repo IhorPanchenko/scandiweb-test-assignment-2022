@@ -10,13 +10,12 @@ SwiperCore.use([Navigation]);
 export default class CartSlider extends React.Component {
   render() {
     const { gallery } = this.props;
-
+    
     return (
       <Swiper
-        navigation={true}
+        navigation={gallery.length > 1}
         className="myCartSwiper"
-        loop={true}
-        navigation={{}}
+        loop={gallery.length > 1}
       >
         {gallery.map((image, index) => (
           <SwiperSlide key={index}>

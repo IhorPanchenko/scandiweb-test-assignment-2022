@@ -11,7 +11,7 @@ const initialState = {
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_CART:
+    case ADD_TO_CART: {
       const cartItems = JSON.parse(JSON.stringify(state.items));
       const obj = action.payload;
       const objCopy = JSON.stringify(action.payload);
@@ -45,7 +45,8 @@ export const cartReducer = (state = initialState, action) => {
         }
       }
       return { ...state, items: cartItems };
-
+    }
+    
     case UPDATE_ITEM_QUANTITY: {
       const cartItems = JSON.parse(JSON.stringify(state.items));
       cartItems[action.id][action.index].quantity = action.payload;
