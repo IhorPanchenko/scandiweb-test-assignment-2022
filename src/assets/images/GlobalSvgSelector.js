@@ -128,22 +128,6 @@ export const GlobalSvgSelector = ({ id }) => {
         </svg>
       );
 
-    case "cart-bin":
-      return (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 20"
-          height="24"
-          width="24"
-        >
-          <path
-            d="M0 5h16v2H0V5zm14 3.07v9.27c0 1.47-1.15 2.66-2.574 2.66H4.574C3.153 20 2 18.797 2 17.34V8.07h12zM4 17.15c0 .462.363.85.803.85h6.394c.446 0 .803-.381.803-.85V8.1H4v9.05zM6 9h1v8H6V9zm3 0h1v8H9V9zM7 0h2c1.656 0 3 1.339 3 3v1.038H4V3c0-1.656 1.339-3 3-3zm3 3.999V3c0-.554-.446-1-1-1H7c-.554 0-1 .446-1 1v.999h4z"
-            fill="#1d1f22"
-            fillRule="evenodd"
-          />
-        </svg>
-      );
-
     default:
       return null;
   }

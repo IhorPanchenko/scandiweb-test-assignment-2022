@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
-import { addToCart } from "../../redux/actions";
-import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
-import { setIsCheckedParam } from "../../helpers/changeProductAttr";
+import { GlobalSvgSelector } from "../../../assets/images/GlobalSvgSelector";
+import { addToCart } from "../../../redux/actions";
+import { getCurrentPrice } from "../../../helpers/pricesAndQuantity";
+import { setIsCheckedParam } from "../../../helpers/changeProductAttr";
 import s from "./ProductItem.module.scss";
 
 class ProductItem extends React.Component {

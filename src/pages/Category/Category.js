@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { client } from "../../index";
 import { getProducts } from "../../helpers/gqlQueries";
-import ProductItem from "../../shared/ProductItem/ProductItem";
+import ProductItem from "../../components/shared/ProductItem/ProductItem";
 import s from "./Category.module.scss";
 
 export class Category extends React.Component {

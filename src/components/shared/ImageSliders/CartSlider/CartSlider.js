@@ -1,5 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import PropTypes from "prop-types";
 import SwiperCore, { Navigation } from "swiper";
 import "./CartSlider.scss";
 import "swiper/scss";
@@ -10,7 +11,7 @@ SwiperCore.use([Navigation]);
 export default class CartSlider extends React.Component {
   render() {
     const { gallery } = this.props;
-    
+
     return (
       <Swiper
         navigation={gallery.length > 1}
@@ -26,3 +27,7 @@ export default class CartSlider extends React.Component {
     );
   }
 }
+
+CartSlider.propTypes = {
+  gallery: PropTypes.array,
+};

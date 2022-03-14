@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { FreeMode, Thumbs } from "swiper";
 import "swiper/css";
@@ -57,3 +58,7 @@ export default class ProductDetailsSlider extends React.Component {
     );
   }
 }
+
+ProductDetailsSlider.propTypes = {
+  gallery: PropTypes.array,
+};

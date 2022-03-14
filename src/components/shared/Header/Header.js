@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
+import { GlobalSvgSelector } from "../../../assets/images/GlobalSvgSelector";
 import MiniCart from "../MiniCart/MiniCart";
 import CurrencySelector from "../CurrencySelector/CurrencySelector";
 import s from "./Header.module.scss";

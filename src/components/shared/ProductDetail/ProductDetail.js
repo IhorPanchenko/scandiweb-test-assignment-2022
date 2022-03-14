@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addToCart } from "../../redux/actions";
 import PropTypes from "prop-types";
-import { client } from "../../index";
-import { getProductDetails } from "../../helpers/gqlQueries";
-import { setIsCheckedParam } from "../../helpers/changeProductAttr";
-import { getCurrentPrice } from "../../helpers/pricesAndQuantity";
+import { addToCart } from "../../../redux/actions";
+import { client } from "../../../index";
+import { getProductDetails } from "../../../helpers/gqlQueries";
+import { setIsCheckedParam } from "../../../helpers/changeProductAttr";
+import { getCurrentPrice } from "../../../helpers/pricesAndQuantity";
 import ProductDetailsSlider from "../ImageSliders/ProductDetailsSlider/ProductDetailsSlider";
 import "./ProductDetail.scss";
 
@@ -80,8 +80,6 @@ class ProductDetail extends React.Component {
 
   render() {
     const { product, isActive, price } = this.state;
-    // let parser = new DOMParser();
-    // let htmlDoc = parser.parseFromString(product.description, "text/html");
 
     if (this.state.loading) return <p>Loading...</p>;
     if (this.state.error) return <p>Error: </p>;

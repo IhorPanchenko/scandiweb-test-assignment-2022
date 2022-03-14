@@ -5,9 +5,9 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { Header } from "./shared/Header/Header";
+import { Header } from "./components/shared/Header/Header";
 import { Category } from "./pages/Category/Category";
-import ProductDetail from "./shared/ProductDetail/ProductDetail";
+import ProductDetail from "./components/shared/ProductDetail/ProductDetail";
 import Cart from "./pages/Cart/Cart";
 
 export default class App extends React.Component {

@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { client } from "../../index";
-import { selectCurrency } from "../../redux/actions";
-import { getCurrency } from "../../helpers/gqlQueries";
-import { GlobalSvgSelector } from "../../assets/images/GlobalSvgSelector";
+import { client } from "../../../index";
+import { selectCurrency } from "../../../redux/actions";
+import { getCurrency } from "../../../helpers/gqlQueries";
+import { GlobalSvgSelector } from "../../../assets/images/GlobalSvgSelector";
 import s from "./CurrencySelector.module.scss";
 
 class CurrencySelector extends React.Component {
