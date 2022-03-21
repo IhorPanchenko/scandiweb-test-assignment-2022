@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { GlobalSvgSelector } from "../../../assets/images/GlobalSvgSelector";
 import { getTotalPrice } from "../../../helpers/pricesAndQuantity";
-import ItemInCart from "../ItemInCart/ItemInCart";
+import { ItemInCart } from "../ItemInCart/ItemInCart";
 import s from "./MiniCart.module.scss";
 
 class MiniCart extends React.Component {

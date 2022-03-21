@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getTotalPrice } from "../../helpers/pricesAndQuantity";
-import ItemInCart from "../../components/shared/ItemInCart/ItemInCart";
+import { ItemInCart } from "../../components/shared/ItemInCart/ItemInCart";
 import s from "./Cart.module.scss";
 
 class Cart extends React.Component {
