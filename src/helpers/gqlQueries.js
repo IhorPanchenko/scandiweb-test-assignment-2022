@@ -1,5 +1,15 @@
 import { gql } from "@apollo/client";
 
+export const getCategoryName = () => {
+  return gql`
+    query getCategoryName {
+      categories {
+        name
+      }
+    }
+  `;
+};
+
 export const getProducts = (category) => {
   return gql`
     query GetTechProductInfo {

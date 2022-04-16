@@ -6,19 +6,23 @@ import {
   removeItemFromCart,
 } from "../../../../redux/actions";
 import { GlobalSvgSelector } from "../../../../assets/images/GlobalSvgSelector";
-import CartSlider from "../../../shared/ImageSliders/CartSlider/CartSlider";
+import { CartSlider } from "../../Slider/CartSlider/CartSlider";
 import s from "../ItemInCart.module.scss";
 
 class ItemInCartRight extends React.Component {
-  updateQuantity(isIncrement) {
-    const { item, index, updateItemCartQuantity } = this.props;
+  updateQuantity(e, isIncrement) {
+    e.stopPropagation();
+    const { item, index, updateItemCartQuantity, removeItemFromCart } =
+      this.props;
     const newQuantity = isIncrement ? item.quantity + 1 : item.quantity - 1;
-    if (!isIncrement && newQuantity < 0) return;
     updateItemCartQuantity(item.data.id, index, newQuantity);
+    if (!isIncrement && newQuantity < 1) {
+      removeItemFromCart(item.data.id, index);
+    }
   }
 
   render() {
-    const { item, index, isCartPage, removeItemFromCart } = this.props;
+    const { item, isCartPage } = this.props;
 
     return (
       <div className={s.itemWrapperRight}>
@@ -26,7 +30,7 @@ class ItemInCartRight extends React.Component {
           <button
             className={s.increaseBtn}
             type="button"
-            onClick={() => this.updateQuantity(true)}
+            onClick={(e) => this.updateQuantity(e, true)}
           >
             <GlobalSvgSelector id="increase-quantity" />
           </button>
@@ -35,11 +39,7 @@ class ItemInCartRight extends React.Component {
           <button
             className={s.decreaseBtn}
             type="button"
-            onClick={() =>
-              item.quantity <= 0
-                ? removeItemFromCart(item.data.id, index)
-                : this.updateQuantity(false)
-            }
+            onClick={(e) => this.updateQuantity(e, false)}
           >
             <GlobalSvgSelector id="decrease-quantity" />
           </button>
@@ -47,7 +47,7 @@ class ItemInCartRight extends React.Component {
 
         <div className={s.itemImgWrapper}>
           {isCartPage ? (
-            <CartSlider gallery={item.data.gallery} />
+            <CartSlider imgs={item.data.gallery} />
           ) : (
             <img
               className={s.itemImg}

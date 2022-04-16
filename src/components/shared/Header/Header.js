@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import { GlobalSvgSelector } from "../../../assets/images/GlobalSvgSelector";
 import MiniCart from "../MiniCart/MiniCart";
 import CurrencySelector from "../CurrencySelector/CurrencySelector";
+import { getCategoryName } from "../../../helpers/gqlQueries";
+import { client } from "../../../index";
 import s from "./Header.module.scss";
 
 export class Header extends React.Component {
@@ -11,11 +13,22 @@ export class Header extends React.Component {
     this.state = {
       isCartOpen: false,
       isCurrencyOpen: false,
+      categories: [],
     };
   }
 
   componentDidMount() {
     document.addEventListener("click", this.onCloseHeaderDropdown.bind(this));
+
+    client
+      .query({
+        query: getCategoryName(),
+      })
+      .then(({ data }) => {
+        this.setState({
+          categories: data.categories,
+        });
+      });
   }
 
   componentWillUnmount() {
@@ -72,24 +85,15 @@ export class Header extends React.Component {
 
         <div className={s.wrapper}>
           <nav>
-            <NavLink
-              to="/"
-              className={({ isActive }) => (isActive ? s.active : null)}
-            >
-              All
-            </NavLink>
-            <NavLink
-              to="/tech"
-              className={({ isActive }) => (isActive ? s.active : null)}
-            >
-              Tech
-            </NavLink>
-            <NavLink
-              to="/clothes"
-              className={({ isActive }) => (isActive ? s.active : null)}
-            >
-              Clothes
-            </NavLink>
+            {this.state.categories.map((category) => (
+              <NavLink
+                to={category.name === "all" ? "/" : category.name}
+                className={({ isActive }) => (isActive ? s.active : null)}
+                key={"navCategory" + category.name}
+              >
+                {category.name}
+              </NavLink>
+            ))}
           </nav>
         </div>
 
