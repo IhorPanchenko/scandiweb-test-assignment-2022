@@ -57,7 +57,7 @@ class ItemInCartAttributes extends React.Component {
                           item.data.id
                         }
                         value={attrItem.value}
-                        defaultChecked={attrItem.isChecked}
+                        checked={attrItem.isChecked}
                         onChange={() =>
                           updateItemCartAttr(
                             item.data.id,
@@ -102,7 +102,7 @@ class ItemInCartAttributes extends React.Component {
                           item.data.id
                         }
                         value={attrItem.value}
-                        defaultChecked={attrItem.isChecked}
+                        checked={attrItem.isChecked}
                         onChange={() =>
                           updateItemCartAttr(
                             item.data.id,
